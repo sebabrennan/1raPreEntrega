@@ -13,7 +13,7 @@ export default class ProductManager {
           return JSON.parse(products);
         } else return [];
       } catch (error) {
-        console.error(error);
+        throw new Error(error);
       }
     }
   
@@ -25,18 +25,16 @@ export default class ProductManager {
             ...obj
         }
         const products = await this.getProducts();
-        if ((product.title, product.description, product.price, product.code, product.stock)) {
-          if (products.some((p) => p.code === product.code)) {
-            console.error("No es posible agregar ese producto: código repetido");
-            return false;
-          } else {
-            products.push(product);
-            await fs.promises.writeFile(this.path, JSON.stringify(products));
-            return product;
-          }
+        if (products.some((p) => p.code === product.code)) {
+          console.error("No es posible agregar ese producto: código repetido");
+          return false;
+        } else {
+          products.push(product);
+          await fs.promises.writeFile(this.path, JSON.stringify(products));
+          return product;
         }
       } catch (error){
-          return console.error("Todos los campos son obligatorios", error);
+        throw new Error(error);;
       }
     }
   
@@ -47,7 +45,7 @@ export default class ProductManager {
         if (!checkId) return false;
         else return checkId;
       } catch (error) {
-        console.error(error);
+        throw new Error(error);
       }
     }
   
@@ -67,7 +65,7 @@ export default class ProductManager {
             return null
         }
       } catch (error){
-        console.error("No fue posible actualizar el producto", error);
+        throw new Error(error);
       }
     }
   
@@ -81,7 +79,7 @@ export default class ProductManager {
         }
         else return null
       } catch (error){
-        console.log("producto no encontrado para eliminar", error);
+        throw new Error(error);
       }
     }
 }

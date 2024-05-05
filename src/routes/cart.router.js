@@ -2,7 +2,8 @@ import { Router } from "express";
 const router = Router();
 
 router.post('/', (req,res)=>{
-    //crear carrito con un y array products
+    //crear carrito con un ID y array products
+    
 })
 
 router.post('/:idCart/product/:idProd', (req,res)=>{
